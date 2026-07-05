@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" class="dark"><head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Get started with a free and open-source admin dashboard layout built with Tailwind CSS and Flowbite featuring charts, widgets, CRUD layouts, authentication pages, and more">
+<meta name="author" content="Themesberg">
+<meta name="generator" content="Hugo 0.58.2">
+<%# Flowbite (app.bundle.js) initialisiert Dropdowns nur beim DOMContentLoaded.
+    Turbo tauscht nur den <body> und feuert das Event nicht erneut -> Dropdowns tot.
+    Full-Reload pro Admin-Seite = gleiches Verhalten wie direkter URL-Aufruf. %>
+<meta name="turbo-visit-control" content="reload">
+
+<title>Tailwind CSS Products Page - Flowbite</title>
+
+<link rel="canonical" href="https://flowbite-admin-dashboard.vercel.app/crud/products/">
+
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://flowbite-admin-dashboard.vercel.app//app.css">
+<%= csrf_meta_tags %>
+<%= csp_meta_tag if respond_to?(:csp_meta_tag) %>
+<% if respond_to?(:javascript_importmap_tags) %>
+  <%= javascript_importmap_tags %>
+<% end %>
+<%= render "layouts/admin/favicons" %>
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:title" content="Tailwind CSS Products Page - Flowbite">
+<meta name="twitter:description" content="Get started with a free and open-source admin dashboard layout built with Tailwind CSS and Flowbite featuring charts, widgets, CRUD layouts, authentication pages, and more">
+<meta name="twitter:image" content="https://flowbite-admin-dashboard.vercel.app/images/og-image.png">
+
+<!-- Facebook -->
+<meta property="og:url" content="https://flowbite-admin-dashboard.vercel.app/crud/products/">
+<meta property="og:title" content="Tailwind CSS Products Page - Flowbite">
+<meta property="og:description" content="Get started with a free and open-source admin dashboard layout built with Tailwind CSS and Flowbite featuring charts, widgets, CRUD layouts, authentication pages, and more">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://flowbite-admin-dashboard.vercel.app/images/og-image.png">
+<meta property="og:image:type" content="image/png">
+
+
+
+
+
+
+<script>
+    
+    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark')
+    }
+</script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-800">
+  <%= render "layouts/admin/navbar-dashboard" %>
+  <div class="flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
+    <%= render "layouts/admin/sidebar" %>
+    <div id="main-content" class="relative w-full h-full overflow-y-auto bg-gray-50 lg:ml-64 dark:bg-gray-900">
+      <main>
+        <%= render "layouts/admin/flash" %>
+        <%= yield %>
+      </main>
+      <%= render "layouts/admin/footer-dashboard" %>
+    </div>
+  </div>
+
+
+
+  <script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
+  <script src="https://flowbite-admin-dashboard.vercel.app//app.bundle.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/datepicker.min.js"></script>
+  <script>
+    (function () {
+      if (window.adminPanelFlashDismiss) return;
+      window.adminPanelFlashDismiss = true;
+
+      document.addEventListener("click", function (event) {
+        var button = event.target.closest("[data-flash-dismiss]");
+        if (!button) return;
+
+        var alert = button.closest('[role="alert"]');
+        if (alert) alert.remove();
+      });
+    })();
+  </script>
+  
+  <svg id="SvgjsSvg1001" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" style="overflow: hidden; top: -100%; left: -100%; position: absolute; opacity: 0;"><defs id="SvgjsDefs1002"></defs><polyline id="SvgjsPolyline1003" points="0,0"></polyline><path id="SvgjsPath1004" d="M0 0 "></path></svg>
+</body>
+</html>

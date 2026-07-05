@@ -1,0 +1,109 @@
+---
+description: CRUD-Referenz – Bands-Index unter /admin/:locale/bands als Vorlage für neue Ressourcen
+globs: app/controllers/admin_panel/**/*.rb,app/helpers/admin_panel/**/*.rb,app/views/admin_panel/crud/**/*
+alwaysApply: false
+---
+
+# CRUD-Referenz: Bands (`/admin/de/bands`)
+
+Neue Admin-CRUDs orientieren sich an der Bands-Implementierung in **sceneatlas** + Engine **`AdminPanel::CrudController`**.
+
+## Host-App (sceneatlas)
+
+### Controller
+```ruby
+class Admin::BandsController < AdminPanel::CrudController
+  self.resource_class = Band
+
+  def index
+    super
+  end
+
+  private
+
+  def crud_columns
+    %w[name country founded_year website]
+  end
+
+  def resource_params
+    params.require(:band).permit(...)
+  end
+end
+```
+
+- Von `AdminPanel::CrudController` erben, `self.resource_class` setzen.
+- Index: `super` → Engine rendert `admin_panel/crud/index`.
+- Spalten nur über `crud_columns` steuern (nicht die Tabelle duplizieren).
+- `resource_params` ist Pflicht; Strong Parameters im Host.
+
+### Routes
+Admin-Routen in der Host-App (kein Mount unter `/admin` – Engine liefert Controller/Views):
+
+```ruby
+get "/admin", to: redirect { "/admin/#{I18n.default_locale}" }
+
+scope path: "/admin", as: "admin" do
+  scope "(:locale)", locale: /de|en/ do
+    root to: "admin_panel/dashboard#index"
+    scope module: "admin" do
+      resources :bands
+      get "users", to: "pages#users"
+    end
+  end
+end
+```
+
+URL-Helfer: `admin_bands_path`, `admin_root_path`.
+
+### Member-URLs (Locale-Scope)
+Immer explizit `id:` verwenden:
+```ruby
+edit_admin_band_path(id: band, locale: I18n.locale)
+admin_band_path(id: band, locale: I18n.locale)
+```
+
+### I18n
+- Index-Titel: neutraler Plural via `crud_index_title` → `model_name.human(count: 2)` („Bands“, nicht „Alle Bands“).
+- `activerecord.models` / `attributes` in Host-Locales pflegen.
+
+### Views
+- **Index:** Engine-Default nutzen (`super`), keine eigene `index.html.slim` nötig.
+- **new/edit/show:** Engine rendert `admin_panel/crud/new|edit|show` mit Flowbite-Layout.
+- Optional Host-Override: `admin/<plural>/_form`, `_show` via `PartialResolver`.
+- Slot-Overrides optional unter `app/views/admin/<plural>/_index_header` etc. (siehe `PartialResolver`).
+
+## Engine (admin_panel)
+
+### Index-Slots (`render_crud_partial`)
+`index_header` → `index_table` → `index_footer` → `index_after_table`
+
+Pagination: nur `index_footer` — Flowbite-Layout mit `pagy.page_url(:previous/:next)`.
+
+Partial-Auflösung (`lib/admin_panel/crud/partial_resolver.rb`):
+1. `admin/<plural>/`
+2. `admin_panel/crud/<singular>/`
+3. `admin_panel/crud/`
+
+### Helpers (`CrudHelper` + `FormHelper`)
+- `crud_index_title`, `crud_search_placeholder`, `crud_add_new_label`, `crud_edit_path`, `crud_cell_value`
+- Formular: `crud_form_field`, `crud_form_text_field`, `crud_form_email_field`, `crud_form_number_field`, `crud_form_password_field`, `crud_form_date_field`, `crud_form_textarea_field`, `crud_form_select_field`, `crud_form_file_field`, `crud_form_checkbox_field`, `crud_form_toggle_field`, `crud_form_toggle_row`, `crud_form_submit`, `crud_form_cancel`, `crud_form_actions`
+
+### Locale
+`AdminPanel::ApplicationController#set_locale` + `default_url_options` – EN immer mit `/en/` in URLs.
+
+### Turbo + Flowbite
+Flowbite (`app.bundle.js`) initialisiert Dropdowns/Toggles nur beim `DOMContentLoaded`. Bei Turbo-Navigation wird nur der `<body>` getauscht → Handler weg. Fix im Admin-Layout: `<meta name="turbo-visit-control" content="reload">` erzwingt Full-Reload pro Admin-Seite (Verhalten wie direkter URL-Aufruf, Turbo-Confirm beim Löschen bleibt erhalten). Alternative: Flowbite via Importmap pinnen und `initFlowbite()` in `turbo:load` aufrufen (dann app.bundle.js-Auto-Init entfernen, um Doppel-Init zu vermeiden).
+
+### Navigation (`crud_for` / `admin_page`)
+In Host-`routes.rb` innerhalb des Admin-Scopes:
+```ruby
+extend AdminPanel::Crud::Dsl
+crud_for Band
+admin_page :users, label: -> { ... }, path: ->(helpers) { AdminPanel::Navigation.route(helpers, "admin_users_path") }
+```
+Sidebar rendert `admin_panel_crud_nav_items` aus `AdminPanel::Navigation`.
+
+Flash-Messages: `flash_notice(:create|:update|:destroy)` via `FlashMessages`-Concern. Anzeige: `layouts/admin/_flash` (Flowbite, dismissible). Keys: `flash.actions.*`.
+
+## Nicht als Vorlage
+- `sceneatlas/app/views/admin/pages/users.html.slim` (Flowbite-Demo, statisch)

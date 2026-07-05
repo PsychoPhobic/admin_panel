@@ -1,0 +1,11 @@
+- resource = local_assigns.fetch(:resource) { @resource }
+- title = local_assigns.fetch(:title) { crud_show_title(resource) }
+
+div class="grid grid-cols-1 px-4 pt-6 dark:bg-gray-900"
+  div class="mb-4 col-span-full"
+    = render "layouts/admin/breadcrumbs", parent: { label: crud_index_title, url: collection_path }, current: title
+    h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white" = title
+  div class="col-span-full"
+    div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800"
+      h3 class="mb-4 text-xl font-semibold dark:text-white" = crud_show_section_title
+      = render_crud_partial :show, resource: resource

@@ -1,0 +1,10 @@
+- resource = local_assigns.fetch(:resource) { @resource }
+
+= form_with model: resource, url: crud_form_url(resource), scope: crud_form_scope, html: { multipart: true } do |form|
+  = crud_form_errors(resource)
+
+  div class=crud_form_grid_classes
+    - crud_form_columns.each do |column|
+      = crud_form_field(form, column)
+
+    = crud_form_actions(form)
