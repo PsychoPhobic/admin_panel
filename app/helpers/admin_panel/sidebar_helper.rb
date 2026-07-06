@@ -50,11 +50,45 @@ module AdminPanel
       admin_panel_nav_items(section: :system)
     end
 
+    def admin_panel_public_maintenance_path
+      host_route { maintenance_path(locale: I18n.locale) }
+    end
+
+    def admin_panel_public_not_found_path
+      "/404"
+    end
+
+    def admin_panel_public_sign_in_path
+      host_route { new_user_session_path }
+    end
+
+    def admin_panel_public_sign_up_path
+      host_route { new_user_registration_path }
+    end
+
+    def admin_panel_public_forgot_password_path
+      host_route { new_user_password_path }
+    end
+
+    def admin_panel_public_reset_password_path
+      host_route { edit_user_password_path }
+    end
+
     def admin_panel_nav_items(section: :crud)
       AdminPanel::Navigation.for_section(section).map { |item| resolve_nav_item(item) }
     end
 
     private
+
+    def host_route(&block)
+      if respond_to?(:main_app)
+        main_app.instance_exec(&block)
+      else
+        yield
+      end
+    rescue ActionController::UrlGenerationError, NoMethodError
+      "#"
+    end
 
     def resolve_nav_item(item)
       {
