@@ -156,4 +156,4 @@ nav class="fixed z-30 w-full bg-white border-b border-gray-200 dark:bg-gray-800 
                 li = link_to "Dashboard", root_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white", role: "menuitem"
                 li = link_to "Settings",  root_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white", role: "menuitem"
                 li = link_to "Earnings",  root_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white", role: "menuitem"
-                li = link_to "Sign out",  root_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white", role: "menuitem"
+                li = link_to t("sign_out"), admin_sign_out_path, data: { turbo_method: :delete }, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white", role: "menuitem"

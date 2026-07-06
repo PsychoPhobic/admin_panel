@@ -21,6 +21,9 @@ aside id="sidebar" class="fixed top-0 left-0 z-20 flex flex-col flex-shrink-0 hi
             - admin_panel_crud_nav_items.each do |item|
               = sidebar_sub_link label: item[:label], url: item[:url]
 
+          - admin_panel_system_nav_items.each do |item|
+            = sidebar_link label: item[:label], url: item[:url], icon: :settings
+
           = sidebar_link label: t("settings"), url: "settings/", icon: :settings
 
           = sidebar_dropdown id: :pages, label: t("pages"), icon: :pages do

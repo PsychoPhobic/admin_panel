@@ -6,6 +6,8 @@ module AdminPanel
 
     helper AdminPanel::SidebarHelper
     helper AdminPanel::CrudHelper
+    helper AdminPanel::AuthHelper
+    helper AdminPanel::AuthenticationHelper
     helper_method :admin_dashboard_path
 
     before_action :set_locale

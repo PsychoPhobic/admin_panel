@@ -46,6 +46,10 @@ module AdminPanel
       admin_panel_nav_items(section: :crud)
     end
 
+    def admin_panel_system_nav_items
+      admin_panel_nav_items(section: :system)
+    end
+
     def admin_panel_nav_items(section: :crud)
       AdminPanel::Navigation.for_section(section).map { |item| resolve_nav_item(item) }
     end

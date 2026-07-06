@@ -19,10 +19,24 @@ module AdminPanel
         AdminPanel::Navigation.register(
           key,
           label: label,
-          url: path,
+          url: resolve_admin_page_url(path),
           section: section,
           icon: icon
         )
+      end
+
+      private
+
+      def resolve_admin_page_url(path)
+        case path
+        when Proc then path
+        when String, Symbol
+          helper = path.to_s
+          helper = "#{helper}_path" unless helper.end_with?("_path")
+          ->(helpers) { AdminPanel::Navigation.route(helpers, helper) }
+        else
+          path
+        end
       end
     end
   end

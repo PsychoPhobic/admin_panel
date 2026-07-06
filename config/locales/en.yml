@@ -17,6 +17,8 @@ en:
   maintenance: "Maintenance"
   "404": "404"
   sign_in: "Sign in"
+  sign_out: "Sign out"
+  go_back_home: "Go back home"
   sign_up: "Sign up"
   forgot_password: "Forgot password"
   reset_password: "Reset password"
