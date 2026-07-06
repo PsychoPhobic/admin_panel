@@ -28,6 +28,20 @@ en:
   licensing: "Licensing"
   cookie_policy: "Cookie policy"
   contact: "Contact"
+  notifications: "Notifications"
+  view_notifications: "View notifications"
+  view_all: "View all"
+  apps: "Apps"
+  toggle_dark_mode: "Toggle dark mode"
+  open_user_menu: "Open user menu"
+  toggle_sidebar: "Toggle sidebar"
+  logo_alt: "Logo"
+  brand_name: "Flowbite"
+  change_language: "Change language"
+
+  locales:
+    en: "English (US)"
+    de: "German"
 
   flash:
     actions:

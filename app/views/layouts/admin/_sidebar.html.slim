@@ -1,4 +1,4 @@
-aside id="sidebar" class="fixed top-0 left-0 z-20 flex flex-col flex-shrink-0 hidden w-64 h-full pt-16 font-normal duration-75 lg:flex transition-width" aria-label="Sidebar"
+aside id="sidebar" class="fixed top-0 left-0 z-20 flex flex-col flex-shrink-0 hidden w-64 h-full pt-16 font-normal duration-75 lg:flex transition-width" aria-label=t("sidebar")
   div class="relative flex flex-col flex-1 min-h-0 pt-0 bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700"
     div class="flex flex-col flex-1 pt-5 pb-4 overflow-y-auto"
       div class="flex-1 px-3 space-y-1 bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700"
@@ -41,6 +41,7 @@ aside id="sidebar" class="fixed top-0 left-0 z-20 flex flex-col flex-shrink-0 hi
         =t("settings")
         div class="tooltip-arrow" data-popper-arrow=""
       button type="button" data-dropdown-toggle="language-dropdown" class="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+        span class="sr-only" = t("change_language")
         = inline_svg_tag "flags/#{locale_flag_code}.svg", class: "h-5 w-5 rounded-full mt-0.5", viewBox: "0 0 3900 3900"
       <!-- Dropdown -->
       div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700" id="language-dropdown"

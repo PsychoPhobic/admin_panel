@@ -5,17 +5,13 @@ module AdminPanel
     include FlashHelper
 
     LOCALE_FLAG_CODES = { en: "us", de: "de" }.freeze
-    LOCALE_NAMES = {
-      en: "English (US)",
-      de: "Deutsch"
-    }.freeze
 
     def available_languages
       admin_panel_config.available_locales.map do |locale|
         {
           locale: locale,
           code: locale_flag_code(locale),
-          name: LOCALE_NAMES.fetch(locale.to_sym, locale.to_s.upcase),
+          name: locale_name(locale),
           url: locale_switch_url(locale)
         }
       end
@@ -31,6 +27,10 @@ module AdminPanel
 
     def locale_flag_code(locale = I18n.locale)
       LOCALE_FLAG_CODES.fetch(locale.to_sym, locale.to_s)
+    end
+
+    def locale_name(locale)
+      I18n.t("locales.#{locale}", default: locale.to_s.upcase)
     end
 
     def admin_panel_config
