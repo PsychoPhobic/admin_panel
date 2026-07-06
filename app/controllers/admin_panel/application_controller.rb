@@ -9,20 +9,8 @@ module AdminPanel
     helper AdminPanel::AuthHelper
     helper AdminPanel::NavbarHelper
     helper AdminPanel::AuthenticationHelper
-    helper_method :admin_dashboard_path
 
     before_action :set_locale
-
-    def admin_dashboard_path(**options)
-      opts = default_url_options.merge(options)
-      if respond_to?(:admin_root_path)
-        admin_root_path(**opts)
-      elsif respond_to?(:main_app) && main_app.respond_to?(:admin_root_path)
-        main_app.admin_root_path(**opts)
-      else
-        root_path(**opts)
-      end
-    end
 
     private
 

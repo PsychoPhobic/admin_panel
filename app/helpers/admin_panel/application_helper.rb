@@ -25,6 +25,12 @@ module AdminPanel
       admin_dashboard_path(locale: locale)
     end
 
+    # Admin-Startseite (/admin/:locale). Host-Apps definieren admin_root_path in routes.rb.
+    def admin_dashboard_path(**options)
+      opts = { locale: I18n.locale }.merge(options)
+      AdminPanel::Navigation.route(self, :admin_root_path, **opts)
+    end
+
     def locale_flag_code(locale = I18n.locale)
       LOCALE_FLAG_CODES.fetch(locale.to_sym, locale.to_s)
     end
