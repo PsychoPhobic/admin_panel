@@ -1,0 +1,9 @@
+- resource = local_assigns.fetch(:resource) { @resource }
+
+div class=crud_form_grid_classes
+  - crud_show_columns.each do |column|
+    div class=crud_form_field_column_class(column)
+      div class=crud_form_label_classes = resource_class.human_attribute_name(column)
+      div class="mt-1 text-sm text-gray-900 break-words dark:text-white" = crud_show_value(resource, column)
+
+  = crud_show_actions(resource)

@@ -1,0 +1,24 @@
+- card_class = local_assigns.fetch(:card_class, "w-full max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow dark:bg-gray-800")
+- narrow_card = local_assigns.fetch(:narrow_card, false)
+
+div class="flex flex-col items-center justify-center px-6 pt-8 mx-auto md:h-screen dark:bg-gray-900"
+  = link_to local_assigns.fetch(:home_path) { root_path }, class: "flex items-center justify-center mb-8 text-2xl font-semibold lg:mb-10 dark:text-white" do
+    = image_tag "flowbite-admin-dashboard/logo.svg", class: "mr-4 h-11", alt: "Logo"
+    span SceneAtlas
+
+  div class=card_class
+    - if narrow_card
+      div class="w-full p-6 sm:p-8"
+        - if local_assigns[:title].present?
+          h2 class="mb-3 text-2xl font-bold text-gray-900 dark:text-white" = title
+        - if local_assigns[:description].present?
+          p class="text-base font-normal text-gray-500 dark:text-gray-400" = description
+        = render "layouts/admin/flash"
+        = content_for :authentication_body
+    - else
+      - if local_assigns[:title].present?
+        h2 class="text-2xl font-bold text-gray-900 dark:text-white" = title
+      - if local_assigns[:description].present?
+        p class="mt-2 text-base font-normal text-gray-500 dark:text-gray-400" = description
+      = render "layouts/admin/flash"
+      = content_for :authentication_body

@@ -1,0 +1,4 @@
+= render_crud_partial :index_header
+= render_crud_partial :index_table, resources: @resources, columns: crud_columns
+= render_crud_partial :index_footer, pagy: @pagy
+= render_crud_partial :index_after_table, new_resource: @new_resource

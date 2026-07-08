@@ -1,0 +1,33 @@
+div class="flex flex-col"
+  div class="overflow-x-auto"
+    div class="inline-block min-w-full align-middle"
+      div class="overflow-hidden shadow"
+        table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-600"
+          thead class="bg-gray-100 dark:bg-gray-700"
+            tr
+              th scope="col" class="p-4"
+                div class="flex items-center"
+                  input id="checkbox-all" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
+                  label for="checkbox-all" class="sr-only" checkbox
+              - columns.each do |column|
+                th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400"
+                  = resource_class.human_attribute_name(column)
+              th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400"
+                = t("actions", default: "Actions")
+          tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700"
+            - resources.each do |resource|
+              tr class="hover:bg-gray-100 dark:hover:bg-gray-700"
+                td class="w-4 p-4"
+                  div class="flex items-center"
+                    input id="checkbox-#{resource.id}" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
+                    label for="checkbox-#{resource.id}" class="sr-only" checkbox
+                - columns.each do |column|
+                  - if column.to_s == crud_primary_column.to_s
+                    td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400"
+                      div class="text-base font-semibold text-gray-900 dark:text-white" = resource.public_send(column)
+                      / div class="text-sm font-normal text-gray-500 dark:text-gray-400" ???
+                  - else
+                    td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                      = crud_cell_value(resource, column)
+                td class="p-4 space-x-2 whitespace-nowrap"
+                  = render_crud_partial :row_actions, resource: resource
