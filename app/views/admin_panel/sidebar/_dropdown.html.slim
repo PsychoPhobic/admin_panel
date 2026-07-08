@@ -1,0 +1,8 @@
+- dropdown_id = "dropdown-#{id}"
+li
+  button type="button" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700" aria-controls=dropdown_id data-collapse-toggle=dropdown_id
+    = render "admin_panel/sidebar/icon", icon_id: "icon-#{icon}", shrink: true
+    span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item="" = label
+    = render "admin_panel/sidebar/chevron"
+  ul id=dropdown_id class=list_class
+    == content
