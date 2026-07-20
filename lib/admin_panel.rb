@@ -1,3 +1,4 @@
+require "slim"
 require "admin_panel/version"
 require "admin_panel/engine"
 require "admin_panel/navigation"

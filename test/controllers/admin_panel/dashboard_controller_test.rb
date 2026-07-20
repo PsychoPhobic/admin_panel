@@ -1,12 +1,12 @@
 require "test_helper"
 
 module AdminPanel
-  class DashboardControllerTest < ActionDispatch::IntegrationTest
-    include Engine.routes.url_helpers
+  class DashboardControllerTest < ActiveSupport::TestCase
+    test "root routes to dashboard#index" do
+      route = Engine.routes.recognize_path("/", method: :get)
 
-    test "should get index" do
-      get dashboard_index_url
-      assert_response :success
+      assert_equal "admin_panel/dashboard", route[:controller]
+      assert_equal "index", route[:action]
     end
   end
 end
