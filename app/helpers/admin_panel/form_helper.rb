@@ -121,7 +121,7 @@ module AdminPanel
 
     def crud_form_enum_options(column)
       resource_class.defined_enums.fetch(column.to_s).map do |label, _value|
-        [label.humanize, label]
+        [ label.humanize, label ]
       end
     end
 

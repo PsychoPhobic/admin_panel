@@ -9,7 +9,7 @@ module AdminPanel
     end
 
     config.admin_panel = ActiveSupport::OrderedOptions.new
-    config.admin_panel.available_locales = [:en, :de]
+    config.admin_panel.available_locales = [ :en, :de ]
     config.admin_panel.default_locale = :en
 
     initializer "admin_panel.i18n" do

@@ -32,4 +32,3 @@ module AdminPanel
     end
   end
 end
-

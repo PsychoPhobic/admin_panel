@@ -8,7 +8,7 @@ module AdminPanel
 
       def resolve(slot)
         prefixes.each do |prefix|
-          next unless @lookup_context.template_exists?(slot, [prefix], true)
+          next unless @lookup_context.template_exists?(slot, [ prefix ], true)
 
           return "#{prefix}/#{slot}"
         end

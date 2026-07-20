@@ -27,11 +27,11 @@ module AdminPanel
     end
 
     def sidebar_link_classes(active)
-      [LINK_CLASSES, (ACTIVE_CLASSES if active)].compact.join(" ")
+      [ LINK_CLASSES, (ACTIVE_CLASSES if active) ].compact.join(" ")
     end
 
     def sidebar_sub_link_classes(active)
-      [SUB_LINK_CLASSES, (ACTIVE_CLASSES if active)].compact.join(" ")
+      [ SUB_LINK_CLASSES, (ACTIVE_CLASSES if active) ].compact.join(" ")
     end
 
     def sidebar_active?(url)
