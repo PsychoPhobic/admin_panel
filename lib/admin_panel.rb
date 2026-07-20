@@ -1,3 +1,4 @@
+require "pagy"
 require "slim"
 require "admin_panel/version"
 require "admin_panel/engine"
