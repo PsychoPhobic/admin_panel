@@ -1,9 +1,13 @@
 - resource = local_assigns.fetch(:resource) { @resource }
 
-div class=crud_form_grid_classes
-  - crud_show_columns.each do |column|
-    div class=crud_form_field_column_class(column)
-      div class=crud_form_label_classes = resource_class.human_attribute_name(column)
-      div class="mt-1 text-sm text-gray-900 break-words dark:text-white" = crud_show_value(resource, column)
+div class="overflow-x-auto"
+  table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600"
+    tbody class="divide-y divide-gray-200 dark:divide-gray-700"
+      - crud_show_columns.each do |column|
+        tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50"
+          th scope="row" class="w-1/3 px-4 py-3 text-left text-sm font-medium text-gray-500 align-top dark:text-gray-400"
+            = resource_class.human_attribute_name(column)
+          td class="px-4 py-3 text-sm text-gray-900 break-words dark:text-white"
+            = crud_show_value(resource, column)
 
-  = crud_show_actions(resource)
+= crud_show_actions(resource)
