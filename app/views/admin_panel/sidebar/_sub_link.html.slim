@@ -1,2 +1,2 @@
 li
-  = link_to label, url, class: sidebar_sub_link_classes(active)
+  = link_to label, url, class: sidebar_sub_link_classes(active, nested: local_assigns.fetch(:nested, false))

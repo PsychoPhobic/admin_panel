@@ -14,8 +14,13 @@ aside id="sidebar" class="fixed top-0 left-0 z-20 flex flex-col flex-shrink-0 hi
           = sidebar_link label: t("dashboard"), url: admin_dashboard_path, icon: :dashboard
 
           = sidebar_dropdown id: :crud, label: t("crud"), icon: :crud, list_class: "space-y-2 py-2 hidden" do
-            - admin_panel_crud_nav_items.each do |item|
-              = sidebar_sub_link label: item[:label], url: item[:url]
+            - admin_panel_crud_nav_tree.each do |entry|
+              - if entry[:type] == :group
+                = sidebar_nested_dropdown id: "crud-#{entry[:key]}", label: entry[:label] do
+                  - entry[:items].each do |item|
+                    = sidebar_sub_link label: item[:label], url: item[:url], nested: true
+              - else
+                = sidebar_sub_link label: entry[:label], url: entry[:url]
 
           - admin_panel_system_nav_items.each do |item|
             = sidebar_link label: item[:label], url: item[:url], icon: :settings

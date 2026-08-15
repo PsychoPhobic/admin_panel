@@ -1,15 +1,23 @@
 module AdminPanel
   module Navigation
-    Item = Struct.new(:key, :label, :url, :section, :icon, keyword_init: true)
+    Item = Struct.new(:key, :label, :url, :section, :icon, :group, :group_label, keyword_init: true)
 
     class << self
       def items
         @items ||= []
       end
 
-      def register(key, label:, url:, section: :crud, icon: nil)
+      def register(key, label:, url:, section: :crud, icon: nil, **opts)
         items.reject! { |item| item.key == key }
-        items << Item.new(key: key, label: label, url: url, section: section, icon: icon)
+        items << Item.new(
+          key: key,
+          label: label,
+          url: url,
+          section: section,
+          icon: icon,
+          group: opts[:group],
+          group_label: opts[:group_label]
+        )
       end
 
       def for_section(section)

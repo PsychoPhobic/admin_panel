@@ -3,7 +3,7 @@ require "admin_panel/navigation"
 module AdminPanel
   module Crud
     module Dsl
-      def crud_for(model, label: nil, path: nil, section: :crud, icon: nil)
+      def crud_for(model, label: nil, path: nil, section: :crud, icon: nil, group: nil, group_label: nil)
         plural = model.model_name.plural
 
         AdminPanel::Navigation.register(
@@ -11,17 +11,21 @@ module AdminPanel
           label: label || -> { model.model_name.human(count: 2) },
           url: path || ->(helpers) { AdminPanel::Navigation.route(helpers, "admin_#{plural}_path") },
           section: section,
-          icon: icon
+          icon: icon,
+          group: group,
+          group_label: group_label
         )
       end
 
-      def admin_page(key, label:, path:, section: :crud, icon: nil)
+      def admin_page(key, label:, path:, section: :crud, icon: nil, group: nil, group_label: nil)
         AdminPanel::Navigation.register(
           key,
           label: label,
           url: resolve_admin_page_url(path),
           section: section,
-          icon: icon
+          icon: icon,
+          group: group,
+          group_label: group_label
         )
       end
 

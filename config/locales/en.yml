@@ -19,6 +19,7 @@ en:
   sign_in: "Sign in"
   sign_out: "Sign out"
   go_back_home: "Go back home"
+  view_public_site: "View app"
   sign_up: "Sign up"
   forgot_password: "Forgot password"
   reset_password: "Reset password"

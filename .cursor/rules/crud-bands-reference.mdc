@@ -99,6 +99,7 @@ In Host-`routes.rb` innerhalb des Admin-Scopes:
 ```ruby
 extend AdminPanel::Crud::Dsl
 crud_for Band
+# optional: group: :risers, group_label: -> { "Risers" }  # nested under CRUD dropdown
 admin_page :users, label: -> { ... }, path: ->(helpers) { AdminPanel::Navigation.route(helpers, "admin_users_path") }
 ```
 Sidebar rendert `admin_panel_crud_nav_items` aus `AdminPanel::Navigation`.
